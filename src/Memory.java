@@ -12,23 +12,47 @@ public class Memory {
 	public Memory() {		
 		mem = new byte[0xffff];
 		
-		for (int i = 0x1000; i < 0x10FF; i++) {
-			mem[i] = (byte) i;
-		}
+		//fills first 254 data addresses
+//		for (int i = 0x1000; i < 0x10FF; i++) {
+//			mem[i] = (byte) i;
+//		}
 		
 		//assign 5 to address 6, and 8 to address 1b (27) just for testing
-		mem[0x1b] = 6;
-		mem[0x1000] = 1;
-		mem[0x1001] = 2;
-		mem[0x1b + 2] = 0xA;
+//		mem[0x1b] = 6;
+//		mem[0x1000] = 1;
+//		mem[0x1001] = 2;
+//		mem[0x1b + 2] = 0xA;
 	}
+	
+	public void assignByte(int addr, int val) {
+		mem[addr] = (byte) val;
+	}
+	
+	public void assignWord(int addr, int val) {
+		//big endian
+		//split the word
+		//create two integers which are masked versions of the word
+		int pt1 = val & 0xFF00;
+		int pt2 = val & 0x00FF;
+		
+		//convert the first part of the word into a single byte
+		pt1 = pt1 >>> 8;
+		this.mem[addr] = (byte) pt1;
+		this.mem[addr+1] = (byte) pt2;
+	}
+	
+	
 	
 	@Deprecated
 	public void assignRandomRandom() {
 		SecureRandom rand = new SecureRandom();
 		for (int i = 0; i < 100; i++) {		
-			
+			mem[rand.nextInt(0xFFFF)] = (byte) rand.nextInt(0xFF);
 		}
+	}
+	
+	public void printByte(int addr) {
+		System.out.printf("address: %x value: %X\n", addr, mem[addr]);
 	}
 	
 	/**
@@ -39,13 +63,6 @@ public class Memory {
 			System.out.printf("%2x", mem[i]);
 			System.out.println();
 		}
-		
-//		for (int i = 0; i < 1280; i++) { //for full 12800
-//			for (int j = 0; j < 10; j++) {
-//				System.out.printf("%x ", mem[(i*10) + j]);
-//			}
-//			System.out.println();
-//		}
 	}
 	
 	/**
@@ -67,6 +84,7 @@ public class Memory {
 			if ((i+1)%0x10 == 0) System.out.println();
 		}
 	}
+
 	
 	/**
 	 * Prints memory between two indexes

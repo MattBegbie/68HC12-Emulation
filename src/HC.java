@@ -20,8 +20,11 @@ public class HC {
 		// TODO Auto-generated method stub
 		Register regs = new Register();
 		Memory mem = new Memory();
-		
-		mem.printMemData();
+		//mem.assignByte(0x1000, 0xff);
+		mem.assignWord(0x1000, 0x1234);
+		mem.printByte(0x1000);
+		mem.printByte(0x1001);
+		//mem.printMemData();
 	}
 
 }
