@@ -1,5 +1,5 @@
 /*
- * Attempt at 68HSC12 Emulator
+ * Attempt at 68HC12 Emulator
  * 
  * Main is the controller
  * Classes include;
@@ -9,7 +9,7 @@
  * Buses?
  * 
  */
-public class HSC {
+public class HC {
 
 
 	public static void main(String[] args) {
