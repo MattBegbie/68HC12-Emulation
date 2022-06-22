@@ -24,10 +24,20 @@ public class Memory {
 //		mem[0x1b + 2] = 0xA;
 	}
 	
+	/**
+	 * 
+	 * @param addr
+	 * @param val
+	 */
 	public void assignByte(int addr, int val) {
 		mem[addr] = (byte) val;
 	}
 	
+	/**
+	 * 
+	 * @param addr
+	 * @param val
+	 */
 	public void assignWord(int addr, int val) {
 		//big endian
 		//split the word
@@ -51,6 +61,10 @@ public class Memory {
 		}
 	}
 	
+	/**
+	 * for debugging and console output, not actually for read byte info
+	 * @param addr
+	 */
 	public void printByte(int addr) {
 		System.out.printf("address: %x value: %X\n", addr, mem[addr]);
 	}
@@ -85,6 +99,24 @@ public class Memory {
 		}
 	}
 
+	/**
+	 * reads a byte at a specified address
+	 * @param addr - Address of byte that you desire to read
+	 * @return byte at address
+	 */
+	public byte readByte(int addr) {
+		return mem[addr];
+	}
+	
+	/**
+	 * reads two bytes of data
+	 * @param addr - address of starting byte
+	 * @return int of concatinated bytes
+	 */
+	public int readWord(int addr) {
+		//int val = (mem[addr] << 8 )+ mem[addr+1];
+		return (mem[addr] << 8 ) + mem[addr+1];
+	}
 	
 	/**
 	 * Prints memory between two indexes

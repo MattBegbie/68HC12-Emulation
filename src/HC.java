@@ -5,26 +5,44 @@
  * 	idk if it is called the 68HCS12 or the 68HC12
  * 	wiki and online reference shows no S, but textbook and emulator that i already have use S
  * 
+ * Program knowledge is a combination of CST8234 - Processor Architecture course at Algonquin College
+ * and near forgotten memories from OLC6502 tutorial on youtube
+ * 
+ * 
+ * 
  * Main is the controller
  * Classes include;
- * Register
- * Memory
- * OPCODES
- * Buses?
+ * Register //registers of data
+ * Memory //array of all memory
+ * OPCODES //cannot find opcodes... great
+ * Buses? //i do not think i need a bus, it seems... unecesarry in this program
+ * Addressing mode?	
  * 
+ * STEPS
+ * recreate all functions, opcodes, memory registers, etc
+ * integrate reading from file, (read s19 file perhaps):
+ * https://neuron.eng.wayne.edu/auth/ece2620_new/s19_format.html#:~:text=s19%20file%20is%20a%20file,by%202%2Dcharacter%20HEX%20strings.
+ * enumeration may be useful for reading instructions
+ * 
+ * i am finding difficulty finding documentation on LEAS (load effective address SP)
  */
 public class HC {
 
+	public static Register reg = new Register();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Register regs = new Register();
+
 		Memory mem = new Memory();
 		//mem.assignByte(0x1000, 0xff);
 		mem.assignWord(0x1000, 0x1234);
 		mem.printByte(0x1000);
 		mem.printByte(0x1001);
-		//mem.printMemData();
+		System.out.printf("%x\n", (mem.readWord(0x1000)));
+		mem.printMemData();
 	}
 
+	public static void LDAA(byte M) 
+	{ //Load A // (M) -> A
+		reg.setRegA(M);
+	}
 }

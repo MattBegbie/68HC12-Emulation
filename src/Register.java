@@ -2,25 +2,25 @@
 public class Register {
 	private byte regA = 0x00;
 	private byte regB = 0x00;
-	private byte regD = 0x0000; // A concat B
+	private int regD = 0x0000; // A concat B
 	
-	private byte regX; 
-	private byte regY;
+	private int regX; 
+	private int regY;
 	
-	private byte SP;
-	private byte PC;
+	private int SP;
+	private int PC;
 	
 	private byte CCR; //AKA Register H
 	
 	public Register() {
 		regA = 0x00;
 		regB = 0x00;
-		//regD = 0x0000;
+		regD = 0x0000;
 		
 		regX = 0x0000;
 		regY = 0x0000;
 		
-		SP = 0x0000;
+		SP = 0x5678;
 		PC = 0x0000;
 		
 		CCR = 0x00;
@@ -30,7 +30,7 @@ public class Register {
 		return regA;
 	}
 
-	public void setRegA(byte regA) {
+	public void LDAA(byte regA) {
 		this.regA = regA;
 	}
 
@@ -38,47 +38,47 @@ public class Register {
 		return regB;
 	}
 
-	public void setRegB(byte regB) {
+	public void LDAB(byte regB) {
 		this.regB = regB;
 	}
 
-	public byte getRegD() {
+	public int getRegD() {
 		return regD;
 	}
 
-	public void setRegD(byte regD) {
+	public void LDD(int regD) {
 		this.regD = regD;
 	}
 
-	public byte getRegX() {
+	public int getRegX() {
 		return regX;
 	}
 
-	public void setRegX(byte regX) {
+	public void LDX(int regX) {
 		this.regX = regX;
 	}
 
-	public byte getRegY() {
+	public int getRegY() {
 		return regY;
 	}
 
-	public void setRegY(byte regY) {
+	public void LDY(int regY) {
 		this.regY = regY;
 	}
 
-	public byte getSP() {
+	public int getSP() {
 		return SP;
 	}
 
-	public void setSP(byte sP) {
+	public void LDS(int sP) {
 		SP = sP;
 	}
 
-	public byte getPC() {
+	public int getPC() {
 		return PC;
 	}
 
-	public void setPC(byte pC) {
+	public void setPC(int pC) {
 		PC = pC;
 	}
 
