@@ -1,16 +1,16 @@
 
 public class Register {
-	private byte regA = 0x00;
-	private byte regB = 0x00;
-	private int regD = 0x0000; // A concat B
+	private static byte regA = 0x00;
+	private static byte regB = 0x00;
+	private static int regD = 0x0000; // A concat B
 	
-	private int regX; 
-	private int regY;
+	private static int regX; 
+	private static int regY;
 	
-	private int SP;
-	private int PC;
+	private static int SP;
+	private static int PC;
 	
-	private byte CCR; //AKA Register H
+	private static byte CCR; //AKA Register H
 	
 	public Register() {
 		regA = 0x00;
@@ -32,6 +32,8 @@ public class Register {
 
 	public void LDAA(byte regA) {
 		this.regA = regA;
+		// A and D are intertwined
+		this.regD = (this.regD & ~0xFF00) | ((regA << 8) & 0xFF00); //first set of brackets clears the bits i am about to change, second set assings the data to the right spot, together they can be or'ed to make one thing
 	}
 
 	public byte getRegB() {
@@ -40,6 +42,8 @@ public class Register {
 
 	public void LDAB(byte regB) {
 		this.regB = regB;
+		//B and D are intertwined
+		this.regD = (this.regD & ~0x00FF) | ((regB << 8) & 0x00FF); //double check that this is correct
 	}
 
 	public int getRegD() {
@@ -48,6 +52,9 @@ public class Register {
 
 	public void LDD(int regD) {
 		this.regD = regD;
+		// A:B and D are intertwined, changing one changes the others (kinda like quantum entanglement or something)
+		this.regA = (byte) (regD >> 8); //shift 0xFF00 bits to 0x00FF position because cast only uses last two digits
+		this.regB = (byte) (regB);
 	}
 
 	public int getRegX() {
@@ -78,8 +85,8 @@ public class Register {
 		return PC;
 	}
 
-	public void setPC(int pC) {
-		PC = pC;
+	public void IncrememntPC() {
+		PC++;
 	}
 
 	public byte getCCR() {

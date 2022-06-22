@@ -25,6 +25,7 @@
  * enumeration may be useful for reading instructions
  * 
  * i am finding difficulty finding documentation on LEAS (load effective address SP)
+ * I think LEAS should be in this class, its signiture may be something like LEAS(PC) if effective address means current address means Program Counter
  */
 public class HC {
 
@@ -41,8 +42,5 @@ public class HC {
 		mem.printMemData();
 	}
 
-	public static void LDAA(byte M) 
-	{ //Load A // (M) -> A
-		reg.setRegA(M);
-	}
+
 }
