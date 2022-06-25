@@ -31,9 +31,9 @@ public class Register {
 	}
 
 	public void LDAA(byte regA) {
-		this.regA = regA;
+		Register.regA = regA;
 		// A and D are intertwined
-		this.regD = (this.regD & ~0xFF00) | ((regA << 8) & 0xFF00); //first set of brackets clears the bits i am about to change, second set assings the data to the right spot, together they can be or'ed to make one thing
+		Register.regD = (Register.regD & ~0xFF00) | ((regA << 8) & 0xFF00); //first set of brackets clears the bits i am about to change, second set assings the data to the right spot, together they can be or'ed to make one thing
 	}
 
 	public byte getRegB() {
@@ -41,9 +41,9 @@ public class Register {
 	}
 
 	public void LDAB(byte regB) {
-		this.regB = regB;
+		Register.regB = regB;
 		//B and D are intertwined
-		this.regD = (this.regD & ~0x00FF) | ((regB << 8) & 0x00FF); //double check that this is correct
+		//Register.regD = (Register.regD & ~0x00FF) | (regB & 0x00FF); //double check that this is correct
 	}
 
 	public int getRegD() {
@@ -51,10 +51,10 @@ public class Register {
 	}
 
 	public void LDD(int regD) {
-		this.regD = regD;
+		Register.regD = regD;
 		// A:B and D are intertwined, changing one changes the others (kinda like quantum entanglement or something)
-		this.regA = (byte) (regD >> 8); //shift 0xFF00 bits to 0x00FF position because cast only uses last two digits
-		this.regB = (byte) (regB);
+		Register.regA = (byte) (regD >>> 8); //shift 0xFF00 bits to 0x00FF position because cast only uses last two digits
+		Register.regB = (byte) (regD);
 	}
 
 	public int getRegX() {
@@ -62,7 +62,7 @@ public class Register {
 	}
 
 	public void LDX(int regX) {
-		this.regX = regX;
+		Register.regX = regX;
 	}
 
 	public int getRegY() {
@@ -70,7 +70,7 @@ public class Register {
 	}
 
 	public void LDY(int regY) {
-		this.regY = regY;
+		Register.regY = regY;
 	}
 
 	public int getSP() {
@@ -95,6 +95,25 @@ public class Register {
 
 	public void setCCR(byte cCR) {
 		CCR = cCR;
+	}
+	
+	public String toString() {
+		return String.format("RegA=%x \nRegB=%x \nRegD=%x \nRegX=%x \nRegY=%x \nCCR=%x \nProgramCounter=%x \nStackPointer=%x \n", Register.regA, Register.regB, Register.regD, Register.regX, Register.regY, Register.CCR, Register.PC, Register.SP);
+	}
+	
+	//ALU METHODS/Directives
+	
+	public boolean ORG(int addr) {
+		if (addr < 0xFFFF) {
+			Register.PC = addr;
+			return true;
+		}
+		else
+		{
+			System.out.println("Invalid address");
+			return false;
+		}
+
 	}
 	
 	
